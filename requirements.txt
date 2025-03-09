@@ -1,0 +1,12 @@
+python-dotenv
+langchain-google-genai
+langgraph
+langgraph-supervisor
+langmem
+unstructured-client
+langchain-unstructured
+langchain-experimental
+langchain-chroma
+pandas
+tabulate
+streamlit

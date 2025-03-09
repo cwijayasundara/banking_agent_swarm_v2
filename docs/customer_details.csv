@@ -1,0 +1,11 @@
+id,first_name,last_name,address,account_balance,income,gender,date_of_birth
+c001,Jeremy,Hayes,"Studio 32, Kirby ports, Allenbury, NE4 7TR",8474.05,38512.45,Male,11/17/80
+c002,Lewis,Morley,"Flat 7, Jane pines, Tracyberg, W81 2ZE",8919.56,51705.51,Other,9/28/80
+c003,Heather,Nash,"8 Stephanie roads, Herbertport, UB8R 6FB",9449.47,22469.76,Male,8/27/00
+c004,Russell,Hutchinson,"07 Wilkinson light, North Fionachester, B2K 5FA",3038.11,46589,Male,6/19/89
+c005,Olivia,Stephenson,"996 Shaw points, North Clare, CO1H 9TX",6547.72,89791.43,Female,11/21/71
+c006,Kathleen,Taylor,"43 Andrea roads, Thompsonland, IP52 4XS",2777,38691.38,Female,3/26/49
+c007,Kerry,Lewis,"486 Smith courts, Robinsonstad, WC84 1HX",1738.65,58796.76,Female,10/10/58
+c008,Deborah,Campbell,"2 Dylan summit, Alisonberg, TD8R 9AH",4838.59,27724.32,Other,10/5/58
+c009,Margaret,Webb,"96 Billy fall, Newmanport, CW5V 2PE",7835.35,46905.78,Other,9/25/96
+c010,Holly,Owen,"1 King springs, Lake Carol, G5 9YL",5877.43,73803.04,Male,7/23/87
