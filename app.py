@@ -19,6 +19,8 @@ today = datetime.now().strftime("%d/%m/%Y")
 google_api_key = os.getenv("GOOGLE_API_KEY")
 openai_api_key = os.getenv("OPENAI_API_KEY")
 
+checkpointer = InMemorySaver()
+
 store = InMemoryStore(
     index={
         "dims": 1536,
@@ -26,14 +28,10 @@ store = InMemoryStore(
     }
 )
 
-checkpointer = InMemorySaver()
+namespace = ("agent_memories")
 
-namespace = ("agent_memories",)
-
-memory_tools = [
-    create_manage_memory_tool(namespace),
-    create_search_memory_tool(namespace)
-]
+manage_memory_tool = create_manage_memory_tool(namespace)
+search_memory_tool = create_search_memory_tool(namespace)
 
 llm = init_chat_model("gemini-2.0-flash-001", 
                       model_provider="google_genai", 
@@ -63,7 +61,7 @@ def get_customer_details_from_sql_agent(query:str) -> str:
 # agents
 interest_rate_agent = create_react_agent(
     model=llm,
-    tools=[get_interest_rates_from_vector_store] + memory_tools,
+    tools=[get_interest_rates_from_vector_store, manage_memory_tool, search_memory_tool],
     store=store,
     checkpointer=checkpointer,
     name="interest_rate_agent",
@@ -72,7 +70,7 @@ interest_rate_agent = create_react_agent(
 
 pending_tx_agent = create_react_agent(
     model=llm,
-    tools=[get_pending_tx_details_from_pandas_agent] + memory_tools,
+    tools=[get_pending_tx_details_from_pandas_agent, manage_memory_tool, search_memory_tool],
     store=store,
     checkpointer=checkpointer,
     name="pending_tx_agent",
@@ -81,7 +79,7 @@ pending_tx_agent = create_react_agent(
 
 customer_details_agent = create_react_agent(
     model=llm,
-    tools=[get_customer_details_from_sql_agent] + memory_tools,
+    tools=[get_customer_details_from_sql_agent, manage_memory_tool, search_memory_tool],
     store=store,
     checkpointer=checkpointer,
     name="customer_details_agent",
@@ -90,7 +88,7 @@ customer_details_agent = create_react_agent(
 
 # supervisor - Process each query individually instead of all at once
 workflow = create_supervisor(
-    [interest_rate_agent, pending_tx_agent, customer_details_agent] + memory_tools,
+    [interest_rate_agent, pending_tx_agent, customer_details_agent],
     model=llm_thinking,
     prompt=(
         "You are a bank supervisor managing an interest rate agent, pending transactions agent and customer details agent."
